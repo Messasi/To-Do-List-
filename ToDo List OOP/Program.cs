@@ -11,13 +11,37 @@ namespace ToDo_List_OOP
     {
         static void Main(string[] args)
         {
+
+            
             //Creating dictionary
             Dictionary<string, object> dict = new Dictionary<string, object>();
 
             
             DisplayHomeMenu();
+            //taking users choice
+            int HomePageOption = Convert.ToInt32(Console.ReadLine());
+
+            if (HomePageOption == 1)
+            {
+                //Create task function
+            }
+            else if (HomePageOption == 2)
+            {
+                //Edit Task
+            }
+            else if (HomePageOption == 3)
+            {
+                //Delete all tasks
+            }
+            else if (HomePageOption == 4) 
+            { 
+                //Dislpay all tasks
+            }
+            
             
 
+            
+            //Create if statemetn for each choice 
 
 
             
@@ -30,6 +54,7 @@ namespace ToDo_List_OOP
             Console.WriteLine("1.Create Task\n2.Edit Task\n3.Delete Task\n 4.Display all tasks\n\nEnter a number from the menu above");
         }
         
+
         
     }
 }   
