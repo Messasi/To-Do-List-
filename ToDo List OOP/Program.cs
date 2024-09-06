@@ -43,7 +43,7 @@ namespace ToDo_List_OOP
                 Task task = new Task(taskName, Task_dueDate, taskPriority, taskStatus);
 
 
-               Console.WriteLine(task);
+                Console.WriteLine(task.Name + " " + task.Date + " " + task.Priority + " " + task.Status);
 
                 //Create task function
             }
@@ -67,7 +67,7 @@ namespace ToDo_List_OOP
        //Displaying Homepage Menu
         static void DisplayHomeMenu()
         {
-            Console.WriteLine("1.Create Task\n2.Edit Task\n3.Delete Task\n 4.Display all tasks\n Enter a number from the menu above");
+            Console.WriteLine("1.Create Task\n2.Edit Task\n3.Delete Task\n 4.Display all tasks\nEnter a number from the menu above");
         }
         
         /*Create a task 
