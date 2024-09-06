@@ -14,7 +14,7 @@ namespace ToDo_List_OOP
 
             
             //Creating dictionary
-            Dictionary<string, object> dict = new Dictionary<string, object>();
+           // Dictionary<string, List<Task>> dict = new Dictionary<string, List<Task>>();
 
             
             DisplayHomeMenu();
@@ -23,6 +23,28 @@ namespace ToDo_List_OOP
 
             if (HomePageOption == 1)
             {
+                //clear console
+                Console.Clear();
+
+                //get object info 
+                Console.WriteLine("Enter Task Name:\n");
+                string taskName = Console.ReadLine();
+
+                Console.WriteLine("Enter due date:");
+                string Task_dueDate = Console.ReadLine();
+
+                Console.WriteLine("Enter task priority:  High - neutral - Low");
+                string taskPriority = Console.ReadLine();
+
+                Console.WriteLine("Enter the task status: Completed - In progress - Not started");
+                string taskStatus = Console.ReadLine();
+
+
+                Task task = new Task(taskName, Task_dueDate, taskPriority, taskStatus);
+
+
+               Console.WriteLine(task);
+
                 //Create task function
             }
             else if (HomePageOption == 2)
@@ -35,26 +57,29 @@ namespace ToDo_List_OOP
             }
             else if (HomePageOption == 4) 
             { 
-                //Dislpay all tasks
+                //Display all tasks
             }
-            
-            
-
-            
-            //Create if statemetn for each choice 
 
 
-            
             Console.ReadKey();
         }
 
        //Displaying Homepage Menu
         static void DisplayHomeMenu()
         {
-            Console.WriteLine("1.Create Task\n2.Edit Task\n3.Delete Task\n 4.Display all tasks\n\nEnter a number from the menu above");
+            Console.WriteLine("1.Create Task\n2.Edit Task\n3.Delete Task\n 4.Display all tasks\n Enter a number from the menu above");
         }
         
+        /*Create a task 
+        static Dictionary (Dictionary task)
+        {
 
+           
+
+
+            
+            
+        }*/
         
     }
 }   
