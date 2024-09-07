@@ -22,8 +22,12 @@ namespace ToDo_List_OOP
         
         }
 
+        // Override the ToString method to print meaningful information
+        public override string ToString()
+        {
+            return $"Date: {Date}, Priority: {Priority}, Status: {Status}";
+        }
 
-        //Method for new task created 
 
 
 
