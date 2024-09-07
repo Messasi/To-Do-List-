@@ -26,25 +26,29 @@ namespace ToDo_List_OOP
                 //clear console
                 Console.Clear();
 
-                //get object info 
-                Console.WriteLine("Enter Task Name:\n");
-                string taskName = Console.ReadLine();
+                //Create a loop for amount of task to create
+                Console.WriteLine("How many tasks do you want to create?");
+                int taskUserAmount = Convert.ToInt32(Console.ReadLine());
 
-                Console.WriteLine("Enter due date:");
-                string Task_dueDate = Console.ReadLine();
+    
 
-                Console.WriteLine("Enter task priority:  High - neutral - Low");
-                string taskPriority = Console.ReadLine();
+                for (int i = 0; i < taskUserAmount; i++)
+                
+                {
 
-                Console.WriteLine("Enter the task status: Completed - In progress - Not started");
-                string taskStatus = Console.ReadLine();
+                    //get object info 
+                    Console.WriteLine("\nEnter Task Name:");
+                    string taskName = Console.ReadLine();
+
+                    //Declaring taskname as dictionary key 
+                    string DictKey = taskName;
+
+                    CreateTask(DictKey);
+                }
 
 
-                Task task = new Task(taskName, Task_dueDate, taskPriority, taskStatus);
 
-
-                Console.WriteLine(task.Name + " " + task.Date + " " + task.Priority + " " + task.Status);
-
+                DisplayTask();
                 //Create task function
             }
             else if (HomePageOption == 2)
@@ -67,19 +71,58 @@ namespace ToDo_List_OOP
        //Displaying Homepage Menu
         static void DisplayHomeMenu()
         {
-            Console.WriteLine("1.Create Task\n2.Edit Task\n3.Delete Task\n 4.Display all tasks\nEnter a number from the menu above");
+            Console.WriteLine("1.Create Task\n2.Edit Task\n3.Delete Task\n4.Display all tasks\n\nEnter a number from the menu above");
         }
+
+        //Create a dict
+        static Dictionary<string, List<Task>> TaskDict = new Dictionary<string, List<Task>>();
         
-        /*Create a task 
-        static Dictionary (Dictionary task)
+        //Create a task 
+        static void CreateTask(string Dictkey)
         {
 
-           
+            //Taking in user input
+            Console.WriteLine("\nEnter task due date: ");
+            string taskDate = Console.ReadLine();
+
+            Console.WriteLine("\nEnter priority: ");
+            string taskPriority = Console.ReadLine();
+
+            Console.WriteLine("\nEnter Status: ");
+            string taskStatus = Console.ReadLine();
+
+            //Declaring an object
+            Task Tasks = new Task(Dictkey, taskDate, taskPriority, taskStatus);
+
+            //if it is not in the dictionary create a new entry
+            if (!TaskDict.ContainsKey(Dictkey))
+            {
+                TaskDict[Dictkey] = new List<Task>();
+            }
 
 
+            //add the student to the entry
+            TaskDict[Dictkey].Add(Tasks);
+
+
+            Console.WriteLine($"\nCreated new Task {Dictkey} successfully!");
             
+
+
+        }
+
+        static void DisplayTask()
+        {
             
-        }*/
-        
+            foreach (var task in TaskDict)
+            {
+                Console.WriteLine("\n\n" + task.Key);
+
+                foreach (var item in task.Value)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+        }
     }
 }   
