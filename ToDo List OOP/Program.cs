@@ -84,7 +84,7 @@ namespace ToDo_List_OOP
             ReturnToMenu();
         }
 
-        //Edit your task 
+        /*Edit your task 
         static void EditTask()
         {
             Console.Clear();
@@ -104,32 +104,44 @@ namespace ToDo_List_OOP
 
             Console.WriteLine("\nChoose an option from the list to edit from the task: \n1.Task name\n2.Task Due date\n3.Task Priority\n4.Task Status");
             int edit_Tasknum = Convert.ToInt32(Console.ReadLine());
-        }
+        }*/
 
-
-
-
-
-        /*for user choice
-        if (edit_Tasknum == 1)
+        static void deleteTask()
         {
+            //get the name of the task to delete 
+            Console.Clear();
 
-        }
-        else if (edit_Tasknum == 2)
-        {
-            Console.WriteLine("Enter the new due date for your task");
-            string edited_taskName = Console.ReadLine();
+            Console.WriteLine("\nEnter the name of the task you want to edit");
+            string delete_TaskName = Console.ReadLine();
 
-            Task[1] = edited_taskName;
-        }
-        else if (edit_Tasknum == 3) 
-        { 
-        } 
-        else if (edit_Tasknum == 4) 
-        { 
-        }
-        */
+            //If statement print 
+            while (!TaskDict.ContainsKey(delete_TaskName))
+            {
+                Console.WriteLine("\nTask Name entered wrong, Please enter again ");
+                delete_TaskName = Console.ReadLine();
+            }
 
+            //if it is in the list display it and give a y and no option
+            Console.WriteLine($"\nDelete Task '{delete_TaskName}'\nEnter Confirm/Cancel\n");
+            string userdeletechoice = Console.ReadLine();
+
+            if (userdeletechoice.ToUpper() == "CONFIRM")
+            {
+                TaskDict.Remove(delete_TaskName);
+                Console.WriteLine($"\nTask '{delete_TaskName}' deleted successfully ");
+            }
+            else {
+
+                Console.WriteLine("\nTask not deleted");
+            }
+
+            Console.WriteLine("\nPress enter to return to main menu....");
+            Console.ReadKey();
+
+            ReturnToMenu();
+        }
+
+        //To direct direction in the main menu 
         static void MainMenuDirectory()
         {
             Console.WriteLine("1.Create Task\n2.Edit Task\n3.Delete Task\n4.Display all tasks\n\nEnter a number from the menu above");
@@ -166,11 +178,11 @@ namespace ToDo_List_OOP
                 else if (HomePageOption == 2)
                 {
                     //Edit Task
-                    EditTask();
+                    //EditTask();
                 }
                 else if (HomePageOption == 3)
                 {
-                    //Delete all tasks
+                    deleteTask();
                 }
                 else if (HomePageOption == 4)
                 {
