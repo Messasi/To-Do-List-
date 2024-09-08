@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Policy;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ToDo_List_OOP
@@ -12,6 +13,8 @@ namespace ToDo_List_OOP
     {
         static void Main(string[] args)
         {
+
+            Console.WriteLine("Welcome to Leon's To-Do List.\n");
             //Directing the user in the menu 
             MainMenuDirectory();
         }
@@ -26,7 +29,7 @@ namespace ToDo_List_OOP
         static Dictionary<string, List<Task>> TaskDict = new Dictionary<string, List<Task>>();
         
         //Create a task 
-        static void CreateTask(string Dictkey)
+        static async void CreateTask(string Dictkey)
         {
 
             //Taking in user input
@@ -52,33 +55,41 @@ namespace ToDo_List_OOP
             //add the student to the entry
             TaskDict[Dictkey].Add(Tasks);
 
-
-            Console.WriteLine($"\nCreated new Task {Dictkey} successfully!");
-
-
-            MainMenuDirectory();
-
-
+            //Created new task 
+            Console.WriteLine($"\nCreated new Task ' {Dictkey} ' successfully!");
         }
 
         //Display your tasks 
         static void DisplayTasks()
         {
-            
+            Console.Clear();
+
+            //Looping through the dictionary
+            Console.WriteLine("Click any key to return to main menu....");
+
             foreach (var task in TaskDict)
             {
-                Console.WriteLine("\n\n" + task.Key);
+                Console.WriteLine("\n" + task.Key);
 
                 foreach (var item in task.Value)
                 {
                     Console.WriteLine(item);
                 }
             }
+
+            Console.ReadKey();
+
+
+            Thread.Sleep(2000);
+            Console.Clear();
+            MainMenuDirectory();
         }
 
         //Edit your task 
         static void EditTask()
         {
+            Console.Clear();
+
             //Search for task 
             Console.WriteLine("\nEnter the name of the task you want to edit");
             string Edit_TaskName = Console.ReadLine();
@@ -147,9 +158,15 @@ namespace ToDo_List_OOP
                         CreateTask(DictKey);
                     }
 
+                    Console.WriteLine("Click any key to return to main menu....");
+                    Console.ReadKey();
 
+                    Thread.Sleep(2000);
 
-                }
+                    Console.Clear();
+                    MainMenuDirectory();
+
+            }
                 else if (HomePageOption == 2)
                 {
                     //Edit Task
