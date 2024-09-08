@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,61 +12,8 @@ namespace ToDo_List_OOP
     {
         static void Main(string[] args)
         {
-
-            
-            //Creating dictionary
-           // Dictionary<string, List<Task>> dict = new Dictionary<string, List<Task>>();
-
-            
-            DisplayHomeMenu();
-            //taking users choice
-            int HomePageOption = Convert.ToInt32(Console.ReadLine());
-
-            if (HomePageOption == 1)
-            {
-                //clear console
-                Console.Clear();
-
-                //Create a loop for amount of task to create
-                Console.WriteLine("How many tasks do you want to create?");
-                int taskUserAmount = Convert.ToInt32(Console.ReadLine());
-
-    
-
-                for (int i = 0; i < taskUserAmount; i++)
-                
-                {
-
-                    //get object info 
-                    Console.WriteLine("\nEnter Task Name:");
-                    string taskName = Console.ReadLine();
-
-                    //Declaring taskname as dictionary key 
-                    string DictKey = taskName;
-
-                    CreateTask(DictKey);
-                }
-
-
-
-                DisplayTask();
-                //Create task function
-            }
-            else if (HomePageOption == 2)
-            {
-                //Edit Task
-            }
-            else if (HomePageOption == 3)
-            {
-                //Delete all tasks
-            }
-            else if (HomePageOption == 4) 
-            { 
-                //Display all tasks
-            }
-
-
-            Console.ReadKey();
+            //Directing the user in the menu 
+            MainMenuDirectory();
         }
 
        //Displaying Homepage Menu
@@ -74,7 +22,7 @@ namespace ToDo_List_OOP
             Console.WriteLine("1.Create Task\n2.Edit Task\n3.Delete Task\n4.Display all tasks\n\nEnter a number from the menu above");
         }
 
-        //Create a dict
+        //Create a dictionary to store the Task object
         static Dictionary<string, List<Task>> TaskDict = new Dictionary<string, List<Task>>();
         
         //Create a task 
@@ -106,12 +54,15 @@ namespace ToDo_List_OOP
 
 
             Console.WriteLine($"\nCreated new Task {Dictkey} successfully!");
-            
+
+
+            MainMenuDirectory();
 
 
         }
 
-        static void DisplayTask()
+        //Display your tasks 
+        static void DisplayTasks()
         {
             
             foreach (var task in TaskDict)
@@ -124,5 +75,100 @@ namespace ToDo_List_OOP
                 }
             }
         }
+
+        //Edit your task 
+        static void EditTask()
+        {
+            //Search for task 
+            Console.WriteLine("\nEnter the name of the task you want to edit");
+            string Edit_TaskName = Console.ReadLine();
+
+            //If statement print 
+            while (!TaskDict.ContainsKey(Edit_TaskName))
+            {
+                Console.WriteLine("\nTask Name enterd wrong, Please enter again ");
+                Edit_TaskName = Console.ReadLine();
+
+
+
+            }
+
+            Console.WriteLine($"\nSelected {Edit_TaskName}");
+
+            Console.WriteLine("\nChoose an option from the list to edit from the task: \n1.Task name\n2.Task Due date\n3.Task Priority\n4.Task Status");
+            int edit_Tasknum = Convert.ToInt32(Console.ReadLine());
+        }
+
+        /*for user choice
+        if (edit_Tasknum == 1)
+        {
+
+        }
+        else if (edit_Tasknum == 2)
+        {
+            Console.WriteLine("Enter the new due date for your task");
+            string edited_taskName = Console.ReadLine();
+
+            Task[1] = edited_taskName;
+        }
+        else if (edit_Tasknum == 3) 
+        { 
+        } 
+        else if (edit_Tasknum == 4) 
+        { 
+        }
+        */
+
+        static void MainMenuDirectory()
+        {
+                DisplayHomeMenu();
+                //taking users choice
+                int HomePageOption = Convert.ToInt32(Console.ReadLine());
+
+                if (HomePageOption == 1)
+                {
+                    //clear console
+                    Console.Clear();
+
+                    //Create a loop for amount of task to create
+                    Console.WriteLine("How many tasks do you want to create?");
+                    int taskUserAmount = Convert.ToInt32(Console.ReadLine());
+
+                    for (int i = 0; i < taskUserAmount; i++)
+
+                    {
+                        //get object info 
+                        Console.WriteLine("\nEnter Task Name:");
+                        string taskName = Console.ReadLine();
+
+                        //Declaring taskname as dictionary key 
+                        string DictKey = taskName;
+
+                        CreateTask(DictKey);
+                    }
+
+
+
+                }
+                else if (HomePageOption == 2)
+                {
+                    //Edit Task
+                    EditTask();
+                }
+                else if (HomePageOption == 3)
+                {
+                    //Delete all tasks
+                }
+                else if (HomePageOption == 4)
+                {
+                    //Display all tasks
+                    DisplayTasks();
+                }
+
+
+                Console.ReadKey();
+            
+        }
+        
     }
 }   
