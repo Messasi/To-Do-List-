@@ -9,11 +9,11 @@ namespace ToDo_List_OOP
     internal class Task
     {
         public string Name;
-        public string Date;
+        public DateTime Date;
         public string Priority;
         public string Status;
 
-        public Task(string name, string date, string priority, string status) { 
+        public Task(string name, DateTime date, string priority, string status) { 
         
             Name = name;
             Date = date;
@@ -25,7 +25,7 @@ namespace ToDo_List_OOP
         // Override the ToString method to print meaningful information
         public override string ToString()
         {
-            return $"Date: {Date}, Priority: {Priority}, Status: {Status}";
+            return $"Date: {Date.ToString("dd/MM/yyyy")}, Priority: {Priority}, Status: {Status}";
         }
 
 
