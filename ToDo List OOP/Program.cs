@@ -13,16 +13,10 @@ namespace ToDo_List_OOP
     {
         static void Main(string[] args)
         {
-
-            Console.WriteLine("Welcome to Leon's To-Do List.\n");
+            Console.WriteLine("Welcome to Leon's To-Do List");
+            
             //Directing the user in the menu 
             MainMenuDirectory();
-        }
-
-       //Displaying Homepage Menu
-        static void DisplayHomeMenu()
-        {
-            Console.WriteLine("1.Create Task\n2.Edit Task\n3.Delete Task\n4.Display all tasks\n\nEnter a number from the menu above");
         }
 
         //Create a dictionary to store the Task object
@@ -34,7 +28,7 @@ namespace ToDo_List_OOP
 
             //Taking in user input
             Console.WriteLine("\nEnter task due date: ");
-            string taskDate = Console.ReadLine();
+            DateTime taskDate = DateTime.Parse(Console.ReadLine());
 
             Console.WriteLine("\nEnter priority: ");
             string taskPriority = Console.ReadLine();
@@ -51,7 +45,6 @@ namespace ToDo_List_OOP
                 TaskDict[Dictkey] = new List<Task>();
             }
 
-
             //add the student to the entry
             TaskDict[Dictkey].Add(Tasks);
 
@@ -60,11 +53,21 @@ namespace ToDo_List_OOP
         }
 
         //Display your tasks 
-        static void DisplayTasks()
+        static async void DisplayTasks()
         {
             Console.Clear();
 
             //Looping through the dictionary
+
+            if (TaskDict.Count == 0)
+            {
+                Console.WriteLine("No Tasks to be displayed, returning to main menu....");
+                Thread.Sleep(2000);
+
+                Console.Clear();
+                MainMenuDirectory();
+            }
+
             Console.WriteLine("Click any key to return to main menu....");
 
             foreach (var task in TaskDict)
@@ -78,11 +81,7 @@ namespace ToDo_List_OOP
             }
 
             Console.ReadKey();
-
-
-            Thread.Sleep(2000);
-            Console.Clear();
-            MainMenuDirectory();
+            ReturnToMenu();
         }
 
         //Edit your task 
@@ -99,9 +98,6 @@ namespace ToDo_List_OOP
             {
                 Console.WriteLine("\nTask Name enterd wrong, Please enter again ");
                 Edit_TaskName = Console.ReadLine();
-
-
-
             }
 
             Console.WriteLine($"\nSelected {Edit_TaskName}");
@@ -109,6 +105,10 @@ namespace ToDo_List_OOP
             Console.WriteLine("\nChoose an option from the list to edit from the task: \n1.Task name\n2.Task Due date\n3.Task Priority\n4.Task Status");
             int edit_Tasknum = Convert.ToInt32(Console.ReadLine());
         }
+
+
+
+
 
         /*for user choice
         if (edit_Tasknum == 1)
@@ -132,9 +132,10 @@ namespace ToDo_List_OOP
 
         static void MainMenuDirectory()
         {
-                DisplayHomeMenu();
-                //taking users choice
-                int HomePageOption = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("1.Create Task\n2.Edit Task\n3.Delete Task\n4.Display all tasks\n\nEnter a number from the menu above");
+
+            //taking users choice
+            int HomePageOption = Convert.ToInt32(Console.ReadLine());
 
                 if (HomePageOption == 1)
                 {
@@ -146,7 +147,6 @@ namespace ToDo_List_OOP
                     int taskUserAmount = Convert.ToInt32(Console.ReadLine());
 
                     for (int i = 0; i < taskUserAmount; i++)
-
                     {
                         //get object info 
                         Console.WriteLine("\nEnter Task Name:");
@@ -158,15 +158,11 @@ namespace ToDo_List_OOP
                         CreateTask(DictKey);
                     }
 
-                    Console.WriteLine("Click any key to return to main menu....");
+                    Console.WriteLine("Press enter to return to main menu....");
                     Console.ReadKey();
 
-                    Thread.Sleep(2000);
-
-                    Console.Clear();
-                    MainMenuDirectory();
-
-            }
+                    ReturnToMenu();
+                }
                 else if (HomePageOption == 2)
                 {
                     //Edit Task
@@ -182,9 +178,16 @@ namespace ToDo_List_OOP
                     DisplayTasks();
                 }
 
+            Console.ReadKey();         
+        }
 
-                Console.ReadKey();
-            
+        static void ReturnToMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("Loading Menu...");
+            Thread.Sleep(2000);
+            Console.Clear();
+            MainMenuDirectory();
         }
         
     }
