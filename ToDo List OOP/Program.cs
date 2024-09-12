@@ -84,6 +84,61 @@ namespace ToDo_List_OOP
             ReturnToMenu();
         }
 
+        static async void editTask()
+        {
+            //clear the console and then search for the task 
+            Console.Clear();
+
+            Console.WriteLine("\nEnter the name of the task you want to edit");
+            string Edit_TaskName = Console.ReadLine();
+
+            //If statement print 
+            while (!TaskDict.ContainsKey(Edit_TaskName))
+            {
+                Console.WriteLine("\nTask Name enterd wrong, Please enter again ");
+                Edit_TaskName = Console.ReadLine();
+            }
+
+
+            Console.WriteLine($"\nSelected '{Edit_TaskName}'");
+
+            Console.WriteLine("\nEnter a number from the menu below: \n\n1.Task name\n2.Task Due date\n3.Task Priority\n4.Task Status\n5.Return to menu");
+            int editMenuNum = Convert.ToInt32(Console.ReadLine());
+
+            switch (editMenuNum)
+            {
+                case 1:
+                    Console.WriteLine("\nEnter the new name for the task");
+                    string newTaskName = Console.ReadLine();
+
+
+
+                    break;
+
+                case 2:
+                    break;
+
+                case 3:
+                    break;
+
+                case 4:
+
+                    break;
+
+                case 5:
+                    Console.WriteLine("Entered Return to menu option");
+                    Thread.Sleep(2000);
+                    ReturnToMenu();
+                    break;
+
+                default:
+                    ReturnToMenu();
+                    break;
+            }
+
+
+        }
+
         /*Edit your task 
         static void EditTask()
         {
@@ -178,7 +233,7 @@ namespace ToDo_List_OOP
                 else if (HomePageOption == 2)
                 {
                     //Edit Task
-                    //EditTask();
+                    editTask();
                 }
                 else if (HomePageOption == 3)
                 {
