@@ -98,8 +98,6 @@ namespace ToDo_List_OOP
                 Console.WriteLine("\nTask Name enterd wrong, Please enter again ");
                 Edit_TaskName = Console.ReadLine();
             }
-
-
             Console.WriteLine($"\nSelected '{Edit_TaskName}'");
 
             Console.WriteLine("\nEnter a number from the menu below: \n\n1.Task name\n2.Task Due date\n3.Task Priority\n4.Task Status\n5.Return to menu");
@@ -111,18 +109,64 @@ namespace ToDo_List_OOP
                     Console.WriteLine("\nEnter the new name for the task");
                     string newTaskName = Console.ReadLine();
 
+                    //removing the old dictionary and replacing the new dictionary with values
+                    var value = TaskDict[Edit_TaskName];
 
+                    TaskDict[newTaskName] = value;
+                    TaskDict.Remove(Edit_TaskName);
 
+                    Console.WriteLine("\nTask name successfully\n\nReturning to main menu");
+
+                    Thread.Sleep(2000);
+                    ReturnToMenu();
                     break;
 
                 case 2:
+                    Console.WriteLine("\nEnter a new due date for the task (DD/MM/YYYY)");
+                    DateTime editdate = DateTime.Parse(Console.ReadLine());
+
+                    var updatedDate = TaskDict[Edit_TaskName].FirstOrDefault();
+
+                    if (updatedDate != null)
+                    {
+                        // Update the due date
+                        updatedDate.Date = editdate;
+                        Console.WriteLine("\nDue date updated successfully.\n\nReturning to main menu");
+                        Thread.Sleep(2000);
+                        ReturnToMenu();
+                    }
                     break;
 
                 case 3:
+
+                    Console.WriteLine("Enter a new priority for the task");
+                    string editPriortiy = Console.ReadLine();
+
+                    var updatePriority = TaskDict[Edit_TaskName].FirstOrDefault();
+
+                    if(updatePriority != null)
+                    {
+                        updatePriority.Priority = editPriortiy;
+                        Console.WriteLine("\nTask priority updated successfully\n\nReturning to main menu");
+                        Thread.Sleep(2000);
+                        ReturnToMenu();
+                    }
                     break;
 
                 case 4:
+                    // Edit Task Status
+                    Console.WriteLine("\nEnter a new status for the task (e.g., Not Started, In Progress, Completed):");
+                    string editStatus = Console.ReadLine();
 
+                    var updatedStatus = TaskDict[Edit_TaskName].FirstOrDefault(); 
+
+                    if (updatedStatus != null)
+                    {
+                        // Update the status
+                        updatedStatus.Status = editStatus;
+                        Console.WriteLine("\nTask status updated successfully.\n\nReturning to main menu");
+                        ReturnToMenu();
+                    }
                     break;
 
                 case 5:
@@ -135,31 +179,7 @@ namespace ToDo_List_OOP
                     ReturnToMenu();
                     break;
             }
-
-
         }
-
-        /*Edit your task 
-        static void EditTask()
-        {
-            Console.Clear();
-
-            //Search for task 
-            Console.WriteLine("\nEnter the name of the task you want to edit");
-            string Edit_TaskName = Console.ReadLine();
-
-            //If statement print 
-            while (!TaskDict.ContainsKey(Edit_TaskName))
-            {
-                Console.WriteLine("\nTask Name enterd wrong, Please enter again ");
-                Edit_TaskName = Console.ReadLine();
-            }
-
-            Console.WriteLine($"\nSelected {Edit_TaskName}");
-
-            Console.WriteLine("\nChoose an option from the list to edit from the task: \n1.Task name\n2.Task Due date\n3.Task Priority\n4.Task Status");
-            int edit_Tasknum = Convert.ToInt32(Console.ReadLine());
-        }*/
 
         static void deleteTask()
         {
