@@ -25,7 +25,7 @@ namespace ToDo_List_OOP
         // Override the ToString method to print meaningful information
         public override string ToString()
         {
-            return $"Date: {Date.ToString("dd/MM/yyyy")}, Priority: {Priority}, Status: {Status}";
+            return $"Date: {Date.ToString("dd/MM/yy")}, Priority: {Priority}, Status: {Status}";
         }
 
 

@@ -30,7 +30,7 @@ namespace ToDo_List_OOP
             DateTime taskDate;
             while (true)
             {
-                Console.WriteLine("\nEnter task due date (DD/MM/YYYY): ");
+                Console.WriteLine("\nEnter task due date (DD/MM/YY): ");
                 if (DateTime.TryParse(Console.ReadLine(), out taskDate))
                 {
                     break;
