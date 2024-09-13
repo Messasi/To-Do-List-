@@ -26,15 +26,58 @@ namespace ToDo_List_OOP
         static async void CreateTask(string Dictkey)
         {
 
-            //Taking in user input
-            Console.WriteLine("\nEnter task due date: ");
-            DateTime taskDate = DateTime.Parse(Console.ReadLine());
+            // Validate and get task due date
+            DateTime taskDate;
+            while (true)
+            {
+                Console.WriteLine("\nEnter task due date (DD/MM/YYYY): ");
+                if (DateTime.TryParse(Console.ReadLine(), out taskDate))
+                {
+                    break;
+                }
+                Console.WriteLine("Invalid date. Please enter a valid  date.");
+                Thread.Sleep(1000);
+                Console.Clear();
+            }
 
-            Console.WriteLine("\nEnter priority: ");
-            string taskPriority = Console.ReadLine();
+            string taskPriority;
+            bool ispriorityValid = false;
+            do
+            {
+                Console.WriteLine("\nEnter priority (Can only be 'low', 'medium' or 'high') :  ");
+                taskPriority = Console.ReadLine();
+                if (taskPriority.ToLower() == "low" || taskPriority.ToLower() == "medium" || taskPriority.ToLower() == "high")
+                {
+                    ispriorityValid = true;
+                }
+                else
+                {
+                    Console.WriteLine("Priority Entered invalid, Can only be 'low', 'medium' or 'high' ");
+                    Thread.Sleep(1000);
+                    Console.Clear();
+                }
+            } while (ispriorityValid == false);
 
-            Console.WriteLine("\nEnter Status: ");
-            string taskStatus = Console.ReadLine();
+
+            // Validate status input (make sure it's the correct input)
+            bool istaskstatusValid = false;
+            string taskStatus;
+            do
+            {
+                Console.WriteLine("\nEnter Status (Can only be 'Not completed', 'In progress' or 'Done') :  ");
+                taskStatus = Console.ReadLine();
+                if (taskStatus.ToLower() == "low" || taskStatus.ToLower() == "medium" || taskStatus.ToLower() == "high")
+                {
+                    istaskstatusValid = true;
+                }
+                else
+                {
+                    Console.WriteLine("Status Entered invalid, Can only be 'Not completed', 'In progress' or 'Done' ");
+                    Thread.Sleep(1000);
+                    Console.Clear();
+                }
+            } while (istaskstatusValid == false);
+
 
             //Declaring an object
             Task Tasks = new Task(Dictkey, taskDate, taskPriority, taskStatus);
@@ -100,12 +143,29 @@ namespace ToDo_List_OOP
             }
             Console.WriteLine($"\nSelected '{Edit_TaskName}'");
 
-            Console.WriteLine("\nEnter a number from the menu below: \n\n1.Task name\n2.Task Due date\n3.Task Priority\n4.Task Status\n5.Return to menu");
-            int editMenuNum = Convert.ToInt32(Console.ReadLine());
+            bool editmenunumIsValid = false;
+            int editMenuNum = 0;
+
+            do
+            {
+                Console.WriteLine("\nEnter a number from the menu below: \n\n1.Task name\n2.Task Due date\n3.Task Priority\n4.Task Status\n5.Return to menu");
+                editMenuNum = Convert.ToInt32(Console.ReadLine());
+
+                if (editMenuNum == 1 || editMenuNum == 2 || editMenuNum == 3 || editMenuNum == 4 || editMenuNum == 5)
+                {
+                    editmenunumIsValid = true;
+                }
+                else
+                {
+                    Console.WriteLine("Status Entered invalid, Can only be 'Not completed', 'In progress' or 'Done' ");
+                    Thread.Sleep(1000);
+                    Console.Clear();
+                }
+            } while (editmenunumIsValid == false);
 
             switch (editMenuNum)
             {
-                case 1:
+                case 1: //Task name
                     Console.WriteLine("\nEnter the new name for the task");
                     string newTaskName = Console.ReadLine();
 
@@ -121,7 +181,7 @@ namespace ToDo_List_OOP
                     ReturnToMenu();
                     break;
 
-                case 2:
+                case 2: //task Date
                     Console.WriteLine("\nEnter a new due date for the task (DD/MM/YYYY)");
                     DateTime editdate = DateTime.Parse(Console.ReadLine());
 
@@ -137,10 +197,28 @@ namespace ToDo_List_OOP
                     }
                     break;
 
-                case 3:
+                case 3: // Task Priority 
 
                     Console.WriteLine("Enter a new priority for the task");
                     string editPriortiy = Console.ReadLine();
+
+                    //Validate Priority
+                    bool ispriorityValid = false;
+                    do
+                    {
+                        Console.WriteLine("\nEnter priority (Can only be 'low', 'medium' or 'high') :  ");
+                        editPriortiy = Console.ReadLine();
+                        if (editPriortiy.ToLower() == "low" || editPriortiy.ToLower() == "medium" || editPriortiy.ToLower() == "high")
+                        {
+                            ispriorityValid = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Priority Entered invalid, Can only be 'low', 'medium' or 'high' ");
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                        }
+                    } while (ispriorityValid == false);
 
                     var updatePriority = TaskDict[Edit_TaskName].FirstOrDefault();
 
@@ -153,10 +231,29 @@ namespace ToDo_List_OOP
                     }
                     break;
 
-                case 4:
+                case 4: // Task status
                     // Edit Task Status
                     Console.WriteLine("\nEnter a new status for the task (e.g., Not Started, In Progress, Completed):");
                     string editStatus = Console.ReadLine();
+
+
+                    //Validate Status
+                    bool istaskstatusValid = false;
+                    do
+                    {
+                        Console.WriteLine("\nEnter Status (Can only be 'Not completed', 'In progress' or 'Done') :  ");
+                        editStatus = Console.ReadLine();
+                        if (editStatus.ToLower() == "low" || editStatus.ToLower() == "medium" || editStatus.ToLower() == "high")
+                        {
+                            istaskstatusValid = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Status Entered invalid, Can only be 'Not completed', 'In progress' or 'Done' ");
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                        }
+                    } while (istaskstatusValid == false);
 
                     var updatedStatus = TaskDict[Edit_TaskName].FirstOrDefault(); 
 
@@ -169,7 +266,7 @@ namespace ToDo_List_OOP
                     }
                     break;
 
-                case 5:
+                case 5:// Back to Menu
                     Console.WriteLine("Entered Return to menu option");
                     Thread.Sleep(2000);
                     ReturnToMenu();
@@ -224,14 +321,41 @@ namespace ToDo_List_OOP
             //taking users choice
             int HomePageOption = Convert.ToInt32(Console.ReadLine());
 
+
+
+
                 if (HomePageOption == 1)
                 {
                     //clear console
                     Console.Clear();
 
                     //Create a loop for amount of task to create
-                    Console.WriteLine("How many tasks do you want to create?");
-                    int taskUserAmount = Convert.ToInt32(Console.ReadLine());
+                    bool taskuseramountIsValid = false;
+                    int taskUserAmount = 0;
+
+                do
+                {
+                    try
+                    {
+                        Console.WriteLine("How many tasks do you want to create?");
+                        taskUserAmount = Convert.ToInt32(Console.ReadLine());
+
+                        if (taskUserAmount > 0 && taskUserAmount < 5)
+                        {
+                            taskuseramountIsValid = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Enter a number between 1 adn 4");
+                        }
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Please enter a valid number");
+                    }
+                } while (taskuseramountIsValid == false);
+                 
+                    
 
                     for (int i = 0; i < taskUserAmount; i++)
                     {
@@ -239,10 +363,16 @@ namespace ToDo_List_OOP
                         Console.WriteLine("\nEnter Task Name:");
                         string taskName = Console.ReadLine();
 
+                        /*while (TaskDict.ContainsKey(taskName))
+                        {
+                            Console.WriteLine("Task name already exists, enter a new task name");
+                            taskName = Console.ReadLine();
+                        }*/
+
                         //Declaring taskname as dictionary key 
                         string DictKey = taskName;
 
-                        CreateTask(DictKey);
+                        CreateTask(DictKey);  
                     }
 
                     Console.WriteLine("Press enter to return to main menu....");
