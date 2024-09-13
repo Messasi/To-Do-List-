@@ -36,7 +36,7 @@ namespace ToDo_List_OOP
                     break;
                 }
                 Console.WriteLine("Invalid date. Please enter a valid  date.");
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
                 Console.Clear();
             }
 
@@ -53,7 +53,7 @@ namespace ToDo_List_OOP
                 else
                 {
                     Console.WriteLine("Priority Entered invalid, Can only be 'low', 'medium' or 'high' ");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(2000);
                     Console.Clear();
                 }
             } while (ispriorityValid == false);
@@ -66,14 +66,14 @@ namespace ToDo_List_OOP
             {
                 Console.WriteLine("\nEnter Status (Can only be 'Not completed', 'In progress' or 'Done') :  ");
                 taskStatus = Console.ReadLine();
-                if (taskStatus.ToLower() == "low" || taskStatus.ToLower() == "medium" || taskStatus.ToLower() == "high")
+                if (taskStatus.ToLower() == "not completed" || taskStatus.ToLower() == "in progress" || taskStatus.ToLower() == "done")
                 {
                     istaskstatusValid = true;
                 }
                 else
                 {
                     Console.WriteLine("Status Entered invalid, Can only be 'Not completed', 'In progress' or 'Done' ");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(2000);
                     Console.Clear();
                 }
             } while (istaskstatusValid == false);
@@ -157,8 +157,8 @@ namespace ToDo_List_OOP
                 }
                 else
                 {
-                    Console.WriteLine("Status Entered invalid, Can only be 'Not completed', 'In progress' or 'Done' ");
-                    Thread.Sleep(1000);
+                    Console.WriteLine("Invalid Entry");
+                    Thread.Sleep(2000);
                     Console.Clear();
                 }
             } while (editmenunumIsValid == false);
@@ -243,7 +243,7 @@ namespace ToDo_List_OOP
                     {
                         Console.WriteLine("\nEnter Status (Can only be 'Not completed', 'In progress' or 'Done') :  ");
                         editStatus = Console.ReadLine();
-                        if (editStatus.ToLower() == "low" || editStatus.ToLower() == "medium" || editStatus.ToLower() == "high")
+                        if (editStatus.ToLower() == "not completed" || editStatus.ToLower() == "in progress" || editStatus.ToLower() == "done")
                         {
                             istaskstatusValid = true;
                         }
@@ -326,56 +326,53 @@ namespace ToDo_List_OOP
 
                 if (HomePageOption == 1)
                 {
-                    //clear console
-                    Console.Clear();
+                    
 
-                    //Create a loop for amount of task to create
-                    bool taskuseramountIsValid = false;
-                    int taskUserAmount = 0;
+                // Clear console
+                Console.Clear();
 
-                do
+                // Loop to get the valid number of tasks to create
+                int taskUserAmount = 0;
+
+                while (true)
                 {
-                    try
-                    {
-                        Console.WriteLine("How many tasks do you want to create?");
-                        taskUserAmount = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("How many tasks do you want to create (1-4)?");
 
-                        if (taskUserAmount > 0 && taskUserAmount < 5)
+                    if (int.TryParse(Console.ReadLine(), out taskUserAmount) && taskUserAmount > 0 && taskUserAmount <= 4)
+                    {
+                        break; // valid input, break the loop
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please enter a valid number between 1 and 4.");
+                    }
+                }
+
+                // Loop for creating the specified number of tasks
+                for (int i = 0; i < taskUserAmount; i++)
+                {
+                    string taskName;
+                    while (true)
+                    {
+                        Console.WriteLine($"\nEnter Task Name for Task {i + 1}:");
+                        taskName = Console.ReadLine();
+
+                        if (!TaskDict.ContainsKey(taskName))
                         {
-                            taskuseramountIsValid = true;
+                            break; // valid task name, break the loop
                         }
                         else
                         {
-                            Console.WriteLine("Enter a number between 1 adn 4");
+                            Console.WriteLine("Task name already exists, please enter a new task name.");
                         }
                     }
-                    catch (FormatException)
-                    {
-                        Console.WriteLine("Please enter a valid number");
-                    }
-                } while (taskuseramountIsValid == false);
-                 
-                    
 
-                    for (int i = 0; i < taskUserAmount; i++)
-                    {
-                        //get object info 
-                        Console.WriteLine("\nEnter Task Name:");
-                        string taskName = Console.ReadLine();
+                    // Create the task with the valid name
+                    CreateTask(taskName);
+                }
+           
 
-                        /*while (TaskDict.ContainsKey(taskName))
-                        {
-                            Console.WriteLine("Task name already exists, enter a new task name");
-                            taskName = Console.ReadLine();
-                        }*/
-
-                        //Declaring taskname as dictionary key 
-                        string DictKey = taskName;
-
-                        CreateTask(DictKey);  
-                    }
-
-                    Console.WriteLine("Press enter to return to main menu....");
+                Console.WriteLine("Press enter to return to main menu....");
                     Console.ReadKey();
 
                     ReturnToMenu();
