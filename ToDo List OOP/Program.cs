@@ -233,7 +233,7 @@ namespace ToDo_List_OOP
 
                 case 4: // Task status
                     // Edit Task Status
-                    Console.WriteLine("\nEnter a new status for the task (e.g., Not Started, In Progress, Completed):");
+                    Console.WriteLine("\nEnter a new status for the task (e.g., Not Completed, In Progress, Completed):");
                     string editStatus = Console.ReadLine();
 
 
