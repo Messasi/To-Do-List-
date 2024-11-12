@@ -316,7 +316,7 @@ namespace ToDo_List_OOP
         //To direct direction in the main menu 
         static void MainMenuDirectory()
         {
-            Console.WriteLine("1.Create Task\n2.Edit Task\n3.Delete Task\n4.Display all tasks\n\nEnter a number from the menu above");
+            Console.WriteLine("1.Create Task\n2.Edit Task\n3.Delete Task\n4.Display all tasks\n5.Quit\n\nEnter a number from the menu above");
 
             //taking users choice
             int HomePageOption = Convert.ToInt32(Console.ReadLine());
@@ -324,9 +324,9 @@ namespace ToDo_List_OOP
 
 
 
-                if (HomePageOption == 1)
-                {
-                    
+            if (HomePageOption == 1)
+            {
+
 
                 // Clear console
                 Console.Clear();
@@ -370,27 +370,31 @@ namespace ToDo_List_OOP
                     // Create the task with the valid name
                     CreateTask(taskName);
                 }
-           
+
 
                 Console.WriteLine("Press enter to return to main menu....");
-                    Console.ReadKey();
+                Console.ReadKey();
 
-                    ReturnToMenu();
-                }
-                else if (HomePageOption == 2)
-                {
-                    //Edit Task
-                    editTask();
-                }
-                else if (HomePageOption == 3)
-                {
-                    deleteTask();
-                }
-                else if (HomePageOption == 4)
-                {
-                    //Display all tasks
-                    DisplayTasks();
-                }
+                ReturnToMenu();
+            }
+            else if (HomePageOption == 2)
+            {
+                //Edit Task
+                editTask();
+            }
+            else if (HomePageOption == 3)
+            {
+                deleteTask();
+            }
+            else if (HomePageOption == 4)
+            {
+                //Display all tasks
+                DisplayTasks();
+            }
+            else if (HomePageOption == 5) 
+            { 
+                Environment.Exit(0);
+            }
 
             Console.ReadKey();         
         }
